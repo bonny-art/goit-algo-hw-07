@@ -6,6 +6,7 @@
 
 from avl_tree.avl_tree import AVLTree
 from avl_tree.helpers import generate_random_keys
+from avl_tree.visualization import draw_tree
 
 def main():
     """
@@ -15,12 +16,11 @@ def main():
     знаходить найбільше і найменше значення, а також обчислює суму всіх значень.
     """
     tree = AVLTree()
-    root = None
 
     # Параметри для генерації
     num_keys = 100  # Кількість чисел
     min_value = 1  # Мінімальне значення
-    max_value = 1000  # Максимальне значення
+    max_value = 999  # Максимальне значення
 
     # Генерація випадкових чисел
     keys = generate_random_keys(num_keys, min_value, max_value)
@@ -29,24 +29,24 @@ def main():
 
     # Вставка елементів у AVL-дерево
     for key in keys:
-        root = tree.insert(root, key)
+        tree.insert(key)
 
     # Обхід дерева
     print("\nПрямий обхід AVL-дерева:")
-    tree.pre_order_traversal(root)
+    tree.pre_order_traversal(tree.root)
     print("\n\nЦентровий обхід AVL-дерева:")
-    tree.in_order_traversal(root)
+    tree.in_order_traversal(tree.root)
     print("\n\nЗворотній обхід AVL-дерева:")
-    tree.post_order_traversal(root)
+    tree.post_order_traversal(tree.root)
 
     # Знаходження найбільшого та найменшого значень
-    print("\n\nНайбільше значення в дереві:", tree.find_max(root))
-    print("Найменше значення в дереві:", tree.find_min(root))
+    print("\n\nНайбільше значення в дереві:", tree.find_max(tree.root))
+    print("Найменше значення в дереві:", tree.find_min(tree.root))
 
     # Обчислення суми всіх значень у дереві
-    print("\nСума всіх значень в дереві:", tree.sum_values(root))
+    print("\nСума всіх значень в дереві:", tree.sum_values(tree.root))
 
-    # todo: add visualization of tree with blue circules and lines
+    draw_tree(tree.root)
 
 if __name__ == "__main__":
     main()

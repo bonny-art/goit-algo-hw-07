@@ -22,6 +22,9 @@ class AVLTree:
         find_min: Знаходить мінімальне значення в дереві.
         sum_values: Обчислює суму всіх значень у дереві.
     """
+    def __init__(self) -> None:
+        """Ініціалізує порожнє AVL-дерево."""
+        self.root = None
 
     def get_height(self, node: Node) -> int:
         """Повертає висоту вузла.
@@ -87,7 +90,15 @@ class AVLTree:
         self.update_height(y)
         return y
 
-    def insert(self, node: Node, key: int) -> Node:
+    def insert(self, key: int) -> None:
+        """Вставляє новий ключ у AVL-дерево.
+
+        Args:
+            key (int): Ключ для вставки в дерево.
+        """
+        self.root = self._insert(self.root, key)
+
+    def _insert(self, node: Node, key: int) -> Node:
         """Вставляє новий ключ у дерево та виконує балансування.
 
         Args:
@@ -100,9 +111,9 @@ class AVLTree:
         if not node:
             return Node(key)
         elif key < node.key:
-            node.left = self.insert(node.left, key)
+            node.left = self._insert(node.left, key)
         elif key > node.key:
-            node.right = self.insert(node.right, key)
+            node.right = self._insert(node.right, key)
         else:
             return node
 
